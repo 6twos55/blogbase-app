@@ -1,0 +1,285 @@
+@import '_config.scss';
+
+body {
+  margin: 0;
+  background: #060671;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.5 ease;
+  scroll-behavior: smooth;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  background: #0500362b;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.6px);
+  -webkit-backdrop-filter: blur(5.6px);
+
+  .appName {
+    padding: 4px 0 0 1vw;
+    
+    img {
+      height: 8vh;
+      width: 15vw;
+    }
+  }
+
+  .navLinks {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 1rem 4vw;
+
+    .addMedia {
+      text-decoration: none;
+      font-size: 22px;
+      margin: 0;
+      padding-top: 1vh;
+      color: #ee9c03;
+    }
+  }
+}
+
+.mediasContainer {
+  padding: 5vh 3vw;
+  font-size: 35px;
+  font-weight: bold;
+  color: white;
+
+  .mediaList{
+    margin-top: 5vh;
+    display: grid;
+    grid-gap: 2vh;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .mediaItem {
+      list-style-type: none;
+      background: #000041;
+      margin-bottom: 2vh;
+      color: white;
+      width: fit-content;
+      height: fit-content;
+      border-radius: 10px;
+
+      &:hover {
+        transform: scale(1.01);
+        transition: 0.5s ease;
+        box-shadow: 0px 10px 20px 3px  #020013;
+      }
+
+      .mediaImg {
+        width: 30vw;
+        height: 15vw;
+        border-radius: 10px 10px 0 0;
+      }
+
+      .mediaTitle {
+        padding-inline: 15px;
+        margin: 0;
+        color: orange;
+        font-size: 25px;
+      }
+
+      .mediaOptions {
+        display: flex;
+        flex-direction: column;
+        padding: 5px 15px 15px 15px;
+
+        .mediaContent {
+          font-size: 15px;
+          color: lightblue;
+          margin: 2px 0 8px 0 !important;
+        }
+
+        .mediaDate {
+          font-size: 10px;
+          color: white;
+          text-align: right;
+        }
+
+      }
+    }
+  }
+}
+
+
+.addMediaContainer, .updateContainer {
+  padding: 0 10vw;
+  margin: 7vh 0;
+
+  > div {
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: bold;
+    color: orange;
+    padding-bottom: 5vh;
+  }
+
+  form {
+    background-color: #000041;
+    border-radius: 5px;
+    padding: 3vh;
+    font-size: 20px;
+    font-weight: bold;
+    width: 30vw;
+    color: #dcdcdc;
+    margin: 0 auto;
+
+    input {
+      padding: 5px;
+      margin-bottom: 2vh;
+      background-color: lightblue;
+      border-radius: 5px;
+      width: 26vw;
+      border: $border_style;
+      color: black;
+    }
+
+    textarea {
+      padding: 5px;
+      margin-bottom: 1.5vh;
+      color: black;
+      height: 10vh;
+      width: 26vw;
+      border: $border_style;
+      border-radius: 5px;
+      background-color: lightblue;
+    }
+
+    button {
+      padding: 1vh;
+      border-radius: 5px;
+      border: $border_style;
+      font-weight: bold;
+      background-color: orange;
+      margin-top: 2vh;
+
+      &:hover {
+        background: lightblue;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+}
+
+.itemContainer {
+  width: 70vw;
+  margin: 0 auto;
+  text-align: center;
+
+  .itemCover {
+    padding-top: 1vh;
+
+    h2{
+      font-size: 30px;
+      color: orange;
+      padding-bottom: 1vh;
+    }
+    
+    > img {
+      width: 40vw;
+      margin-bottom: 1vh;
+      transition: 0.5s ease-in-out;
+
+      &:hover{
+        transform: scale(1.7);
+        // transition: 0.7s ease-in-out;
+      }
+    }
+
+    .itemDate {
+      color: white;
+      font-size: 15px;
+      text-align: right;
+      width: 40vw;
+      margin: auto;
+    }
+
+    .itemContent {
+      text-align: justify;
+      font-size: 20px;
+      color: #d0eef8;
+      margin: 3vh 0 2vh 0;
+      background: rgba(39, 37, 37, 0.17);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15vh;
+      margin: 0 auto;
+
+      a {
+      font-size: 20px;
+      font-weight: bold;
+      background: orange;
+      color: black;
+      text-decoration: none;
+      padding: 1vh;
+      display: block;
+      width: fit-content;
+      border: $border_style;
+      border-radius: 5px;
+
+      &:hover {
+        background: lightblue;
+        transition: 0.3s ease;
+      }
+    }
+
+    div img{
+      background-color: lightblue;
+      display: inline;
+      border-radius: 5px; 
+      padding: 1vh 2vw;
+
+      &:hover {
+        background-color: #a50000;
+        transition: 0.2s ease;
+        cursor: pointer;
+      }
+    }
+    }
+  }
+}
+
+footer {
+  display: flex;
+  margin-top: 24vh;
+  justify-content: space-between;
+  padding-inline: 5vw;
+  color: #7bdeff;
+
+  p {
+    margin: 0;
+
+    a img{
+      width: 30px;
+      height: 30px;
+      padding-inline: 0.5vh;
+    }
+  }
+  
+}
+
+
+
+@import 'mediaQueries.scss';
