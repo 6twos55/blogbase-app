@@ -1,8 +1,8 @@
-# BLOGBASE
+# [BLOGBASE](https://github.com/6twos55/BlogBase.git)
 
 ## Add a blog and keep track of your daily activities and those of others!
 
-### Blog refreshes every 24 hours.
+### Blog refreshes every 10 minutes.
 
 
 ## This is a react app
