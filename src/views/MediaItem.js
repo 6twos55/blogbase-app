@@ -49,7 +49,7 @@ const MediaItem = () => {
       <div className="itemCover">
       
         <h2>{ item.title }</h2>
-        <img src={ item.fileData } alt="Item file" />
+        <img src={ item.fileData } alt="Unsupported file" />
         <p className="itemDate">{ formattedItemTime + " • " + formattedItemDate }</p>
         <p className="itemContent">{ item.content }</p>
 

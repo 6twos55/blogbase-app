@@ -14,7 +14,7 @@ function App() {
     <div className="appContainer">
       <Navbar />
       <Routes>
-        <Route path='/' element={<Medias />} />
+        <Route exact path='/' element={<Medias />} />
         <Route path='/medias/:mediaId' element={<MediaItem />} />
         <Route path='/update_media/:mediaId' element={<UpdateMedia />} />
         <Route path='/add_media' element={<AddMedia />} />

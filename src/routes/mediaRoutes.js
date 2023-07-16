@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const dbUrl = 'http://localhost:3000/api';
+const dbUrl = 'https://blogbase-server.onrender.com/api';
 
 export const getMedias = () => {
   return axios.get(`${dbUrl}/medias`);

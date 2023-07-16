@@ -41,7 +41,7 @@ const Medias = () => {
 
                   <li className="mediaItem" key={media._id}>
                     <Link to={`/medias/${media._id}`} style={{ textDecoration: "none" }}>
-                      <img src={media.fileData} alt="Media file" className="mediaImg" />
+                      <img src={media.fileData} alt="Unsupported file" className="mediaImg" />
                       <h3 className="mediaTitle">{ media.title.length >= 30 ? media.title.slice(0, 30) + "....": media.title }</h3>
                       
                       <div className="mediaOptions">
