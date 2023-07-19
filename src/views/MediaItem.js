@@ -8,6 +8,7 @@ const MediaItem = () => {
   const { mediaId } = useParams();
   const navigate = useNavigate();
   const [item, setItem] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const itemDate = new Date(item.date);
   const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -16,8 +17,10 @@ const MediaItem = () => {
   const formattedItemTime = itemDate.toLocaleTimeString('en-US', timeOptions);
 
   useEffect(() => {
+    setIsLoading(true);
     getMedia(mediaId)
       .then(result => {
+        setIsLoading(false);
         setItem(result.data)
       })
       .catch(err => {
@@ -39,8 +42,8 @@ const MediaItem = () => {
 
 
 
-  if(!item){
-    return <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh" }}>Loading...</div>;
+  if(isLoading){
+    return <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>;
   }
 
   
