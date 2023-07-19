@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 
 const Medias = () => {
   const [medias, setMedias] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getMedias()
       .then((result) => {
+        setIsLoading(false);
         setMedias(result.data);
       })
       .catch(err => {
@@ -18,8 +21,8 @@ const Medias = () => {
   }, []);
 
 
-  if(!medias){
-    return <div>Loading...</div>;
+  if(isLoading){
+    return <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>;
   }
 
 
