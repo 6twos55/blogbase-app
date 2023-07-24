@@ -25,7 +25,7 @@ const Medias = () => {
     return (
       <div className="mediasContainer">
         <div>My blogs</div>
-        <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>;
+        <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>
       </div>
     ) 
   }
