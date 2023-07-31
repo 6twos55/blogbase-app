@@ -1,6 +1,6 @@
 # [BLOGBASE](https://github.com/6twos55/BlogBase.git)
 
-Blog refreshes every 10 minutes. Only the two default blogs will remain. 📝
+Blog refreshes occasionally. Only the two default blogs will remain. 📝
 
 ### Note that this is a public space. REFRAIN FROM POSTING PERSONAL/SENSITIVE INFORMATION!
 
