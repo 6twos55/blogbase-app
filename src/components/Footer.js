@@ -10,7 +10,7 @@ const Footer = () => {
         &copy;BlogBase 2023. All Rights Reserved.
       </p>
       <p>
-        Built with React.js, Node.js and Sass.
+        Built with MERN and Sass.
       </p>
       <p className="icons">
       <a href="https://github.com/6twos55" title="github link" target="_blank" rel="noreferrer" ><img src={ github } alt="" /></a>
