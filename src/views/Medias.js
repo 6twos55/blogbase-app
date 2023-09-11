@@ -50,10 +50,10 @@ const Medias = () => {
                   <li className="mediaItem" key={media._id}>
                     <Link to={`/medias/${media._id}`} style={{ textDecoration: "none" }}>
                       <img src={media.fileData} alt="Unsupported file" className="mediaImg" />
-                      <h3 className="mediaTitle">{ media.title.length >= 30 ? media.title.slice(0, 30) + "....": media.title }</h3>
+                      <h3 className="mediaTitle">{ media.title.length >= 22 ? media.title.slice(0, 22) + "....": media.title }</h3>
                       
                       <div className="mediaOptions">
-                      <p className="mediaContent">{ media.content.length >= 45 ? media.content.slice(0, 45) + "...." : media.content }</p>
+                      <p className="mediaContent">{ media.content.length >= 35 ? media.content.slice(0, 35) + "...." : media.content }</p>
                       <small className="mediaDate">{ formattedMediaTime + " • " + formattedMediaDate }</small>
                       </div>
                     </Link>
