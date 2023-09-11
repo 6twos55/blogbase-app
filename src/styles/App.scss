@@ -61,6 +61,11 @@ code {
   font-weight: bold;
   color: white;
 
+  .topTitle {
+    font-size: 30px;
+    color: #b8ecfe;
+  }
+
   .mediaList{
     margin-top: 5vh;
     display: grid;
@@ -119,8 +124,7 @@ code {
 
 
 .addMediaContainer, .updateContainer {
-  padding: 0 10vw;
-  margin: 7vh 0;
+  margin: 4vh 0;
 
   > div {
     font-size: 2.5rem;
@@ -133,7 +137,7 @@ code {
   form {
     background-color: #000041;
     border-radius: 5px;
-    padding: 3vh;
+    padding: 3vh 5vh 3vh 3vh;
     font-size: 20px;
     font-weight: bold;
     width: 30vw;
@@ -145,7 +149,7 @@ code {
       margin-bottom: 2vh;
       background-color: lightblue;
       border-radius: 5px;
-      width: 26vw;
+      width: 100%;
       border: $border_style;
       color: black;
     }
@@ -155,7 +159,7 @@ code {
       margin-bottom: 1.5vh;
       color: black;
       height: 10vh;
-      width: 26vw;
+      width: 100%;
       border: $border_style;
       border-radius: 5px;
       background-color: lightblue;

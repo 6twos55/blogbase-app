@@ -15,7 +15,7 @@
       padding: 1rem 4vw;
 
       .addMedia {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
   }
@@ -36,6 +36,16 @@
       }
     }
 
+  }
+
+  .addMediaContainer, .updateContainer {
+    > div {
+      font-size: 1.8rem;
+    }
+
+    form {
+      width: 70vw;
+    }
   }
 
 }
@@ -69,7 +79,7 @@
       padding: 1rem 4vw;
 
       .addMedia {
-        font-size: 20px;
+        font-size: 15px;
       }
     }
   }
@@ -124,6 +134,12 @@
     text-align: center;
   }
 
+  .mediasContainer {
+    .topTitle {
+      font-size: 25px;
+    }
+  }
+
   .navContainer .appName {
     padding: 4px 0 0 1vw;
     
@@ -138,8 +154,14 @@
       padding: 1rem 4vw;
 
       .addMedia {
-        font-size: 16px;
+        font-size: 12px;
       }
+    }
+  }
+
+  .addMediaContainer, .updateContainer {
+    > div {
+      font-size: 1.5rem;
     }
   }
 }

@@ -24,7 +24,7 @@ const Medias = () => {
   if(isLoading){
     return (
       <div className="mediasContainer">
-        <div>All blogs</div>
+        <div className="topTitle">All blogs</div>
         <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>
       </div>
     ) 
@@ -33,7 +33,7 @@ const Medias = () => {
 
   return(
     <div className="mediasContainer">
-      <div>All blogs</div>
+      <div className="topTitle">All blogs</div>
       { 
         medias.length >= 1 ? (
           <div className="mediaList">

@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="navContainer">
       <Link to="/" className="appName"><img src={navLogo} alt="" /></Link>
       <div className="navLinks">
-        <Link to="/add_media" className="addMedia"><p className="addMedia">Add blog</p></Link>
+        <Link to="/add_media" className="addMedia">Add blog</Link>
       </div>
     </nav>
   );
