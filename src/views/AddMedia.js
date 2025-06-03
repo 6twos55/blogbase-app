@@ -32,7 +32,7 @@ const AddMedia = () => {
 
   return(
     <div className="addMediaContainer">
-      <div>Add blog</div>
+      {/* <div>Add blog</div> */}
 
       <form onSubmit={handleAddMedia} encType="multipart/form-data">
         <div>

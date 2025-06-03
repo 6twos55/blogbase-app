@@ -25,7 +25,7 @@ const Medias = () => {
     return (
       <div className="mediasContainer">
         <div className="topTitle">All blogs</div>
-        <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: "orange", fontSize: "20px", height: '60vh', textAlign: 'center'}}>Loading... Free server, please pardon the slowness 🧘‍♂️</div>
       </div>
     ) 
   }

@@ -12,16 +12,19 @@ const UpdateMedia = () => {
 
   useEffect(() => {
     getMedia(mediaId)
-      .then(result => {
-        const { title, content } = result.data;
+      .then((result) => {
+        const { title, content, fileData } = result.data;
+
         setTitle(title);
         setContent(content);
+        setFile(fileData);
       })
-      .catch(err => {
-        console.error('Error fetching media: ', err);
-        window.alert("Couldn't update blog. \n Check your connection and try again.");
-      })
-
+      .catch((err) => {
+        console.error("Error fetching media: ", err);
+        window.alert(
+          "Couldn't update blog. \n Check your connection and try again."
+        );
+      });
   }, [mediaId]);
 
   const handleUpdateMedia = (e) => {
@@ -29,23 +32,24 @@ const UpdateMedia = () => {
 
     setIsLoading(true);
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('fileData', file);
+    formData.append("title", title);
+    formData.append("content", content);
+    if (file && typeof file !== "string") {
+      formData.append("fileData", file);
+    }
 
     updateMedia(mediaId, formData)
       .then(() => {
         setIsLoading(false);
         navigate(`/medias/${mediaId}`);
       })
-      .catch(err => {
-        console.error('Error updating media: ', err);
+      .catch((err) => {
+        console.error("Error updating media: ", err);
         setIsLoading(false);
       });
-  }
-  
+  };
 
-  return(
+  return (
     <div className="updateContainer">
       <div>Update blog</div>
 
@@ -73,17 +77,21 @@ const UpdateMedia = () => {
           <input
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
-            required
+            required={!file}
           />
+          {file && typeof file === "string" && (
+            <div>
+              <p>Current file preview:</p>
+              <img src={file} alt="Current file" style={{ maxWidth: 200 }} />
+            </div>
+          )}
         </div>
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Updating...' : 'Update' }
+          {isLoading ? "Updating..." : "Update"}
         </button>
       </form>
-
     </div>
   );
-
-}
+};
 
 export default UpdateMedia;

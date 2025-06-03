@@ -1,9 +1,7 @@
-
 @media screen and (max-width: 920px) {
-
   .navContainer .appName {
     padding: 4px 0 0 1vw;
-    
+
     img {
       height: 8vh;
       width: 22vw;
@@ -35,10 +33,10 @@
         border-radius: 10px 10px 0 0;
       }
     }
-
   }
 
-  .addMediaContainer, .updateContainer {
+  .addMediaContainer,
+  .updateContainer {
     > div {
       font-size: 1.8rem;
     }
@@ -47,15 +45,20 @@
       width: 70vw;
     }
   }
-
 }
 
 @media screen and (max-width: 860px) {
-  .footer{
+  .mediasContainer {
+    .topTitle {
+      font-size: 42px;
+    }
+  }
+
+  .footer {
     margin-top: 15vh;
     padding-inline: 2vw;
     font-size: 10px;
-    
+
     a img {
       width: 20px;
       height: 20px;
@@ -64,23 +67,30 @@
 }
 
 @media screen and (max-width: 680px) {
+  .navContainer {
+    .appName {
+      padding: 4px 0 0 1vw;
 
-  .navContainer .appName {
-    padding: 4px 0 0 1vw;
-    
-    img {
-      height: 8vh;
-      width: 28vw;
+      img {
+        height: 8vh;
+        width: 28vw;
+      }
     }
 
     .navLinks {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: bold;
       padding: 1rem 4vw;
 
       .addMedia {
-        font-size: 15px;
+        font-size: 16px;
       }
+    }
+  }
+
+  .mediasContainer {
+    .topTitle {
+      font-size: 35px;
     }
   }
 
@@ -96,7 +106,6 @@
     .mediaOptions {
       display: flex;
       justify-content: space-between;
-      padding: 15px;
       font-size: 10px;
 
       .mediaContent {
@@ -106,7 +115,7 @@
         margin: 5px 0 !important;
       }
 
-      img{
+      img {
         background-color: lightblue;
         // margin-top: 1vh;
         border-radius: 5px;
@@ -118,15 +127,12 @@
           cursor: pointer;
         }
       }
-
     }
-    
   }
-
 }
 
 @media screen and (max-width: 590px) {
-  .footer{
+  .footer {
     margin-top: 10vh;
     padding-inline: 2vw;
     font-size: 10px;
@@ -138,11 +144,38 @@
     .topTitle {
       font-size: 25px;
     }
+
+    .mediaList {
+      grid-template-columns: 1fr;
+
+      .mediaItem {
+        width: 91vw;
+
+        .mediaImg {
+          width: 91vw;
+          height: 40vw;
+          border-radius: 10px 10px 0 0;
+        }
+
+        .mediaTitle {
+          padding-inline-start: 20px;
+          font-size: 20px;
+        }
+
+        .mediaOptions {
+          padding: 5px 20px;
+
+          .mediaContent {
+            font-size: 15px;
+          }
+        }
+      }
+    }
   }
 
   .navContainer .appName {
     padding: 4px 0 0 1vw;
-    
+
     img {
       height: 8vh;
       width: 30vw;
@@ -159,7 +192,8 @@
     }
   }
 
-  .addMediaContainer, .updateContainer {
+  .addMediaContainer,
+  .updateContainer {
     > div {
       font-size: 1.5rem;
     }
@@ -167,38 +201,12 @@
 }
 
 @media screen and (max-width: 530px) {
-
   .navContainer .appName {
     padding: 4px 0 0 0;
-    
+
     img {
       height: 8vh;
       width: 40vw;
     }
   }
-
-  .mediasContainer .mediaList {
-    grid-template-columns: 1fr;
-
-    .mediaItem {
-      width: 91vw;
-
-      .mediaImg {
-        width: 91vw;
-        height: 40vw;
-        border-radius: 10px 10px 0 0;
-      }
-
-      .mediaTitle {
-        padding-inline-start: 20px;
-        font-size: 25px;
-      }
-    
-      .mediaOptions {
-        padding: 20px;
-      }
-    }
-    
-  }
-
 }

@@ -43,7 +43,7 @@ const MediaItem = () => {
 
 
   if(isLoading){
-    return <div style={{ textAlign: "center", color: "orange", fontSize: "20px", marginTop: "10vh", marginBottom: "60vh" }}>Loading. Please wait...</div>;
+    return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: "orange", fontSize: "20px", height: '70vh', textAlign: 'center'}}>Loading... Free server, please pardon the slowness 🧘‍♂️</div>;
   }
 
   
