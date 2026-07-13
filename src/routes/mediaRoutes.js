@@ -1,27 +1,66 @@
 import axios from "axios";
 
-const dbUrl = 'https://blogbase-server.onrender.com/api';
+// Fallback to local server for development, fall back to production otherwise
+const dbUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
+const api = axios.create({
+  baseURL: dbUrl,
+});
+
+// Axios Request Interceptor to attach JWT token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("blogbase_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Auth endpoints
+export const loginUser = (credentials) => {
+  return api.post("/auth/login", credentials);
+};
+
+export const registerUser = (userData) => {
+  return api.post("/auth/register", userData);
+};
+
+export const getMe = () => {
+  return api.get("/auth/me");
+};
+
+// Media/Blog endpoints
 export const getMedias = () => {
-  return axios.get(`${dbUrl}/medias`);
-}
-
-export const getLogo = (blogbase) => {
-  return axios.get(`${dbUrl}/logos`);
-}
+  return api.get("/medias");
+};
 
 export const getMedia = (mediaId) => {
-  return axios.get(`${dbUrl}/medias/${mediaId}`);
-}
+  return api.get(`/medias/${mediaId}`);
+};
 
-export const addMedia = (media) => {
-  return axios.post(`${dbUrl}/medias`, media);
-}
+export const addMedia = (formData) => {
+  return api.post("/medias", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
-export const updateMedia = (mediaId, media) => {
-  return axios.put(`${dbUrl}/medias/${mediaId}`, media);
-}
+export const updateMedia = (mediaId, formData) => {
+  return api.put(`/medias/${mediaId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
 export const deleteMedia = (mediaId) => {
-  return axios.delete(`${dbUrl}/medias/${mediaId}`);
-} 
+  return api.delete(`/medias/${mediaId}`);
+};
+
+export default api;

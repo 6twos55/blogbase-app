@@ -1,212 +1,122 @@
+// Mobile Responsive Style Overrides
+
 @media screen and (max-width: 920px) {
-  .navContainer .appName {
-    padding: 4px 0 0 1vw;
-
-    img {
-      height: 8vh;
-      width: 22vw;
-    }
-
-    .navLinks {
-      font-size: 15px;
-      font-weight: bold;
-      padding: 1rem 4vw;
-
-      .addMedia {
-        font-size: 18px;
-      }
-    }
-  }
-
-  .mediasContainer .mediaList {
-    grid-gap: 1vh;
-    grid-template-columns: 1fr 1fr;
-
-    .mediaItem {
-      margin-bottom: 1vh;
-      width: 45vw;
-      border-radius: 6px;
-
-      .mediaImg {
-        width: 45vw;
-        height: 25vw;
-        border-radius: 10px 10px 0 0;
-      }
-    }
-  }
-
-  .addMediaContainer,
-  .updateContainer {
-    > div {
-      font-size: 1.8rem;
-    }
-
-    form {
-      width: 70vw;
-    }
-  }
-}
-
-@media screen and (max-width: 860px) {
-  .mediasContainer {
-    .topTitle {
-      font-size: 42px;
-    }
-  }
-
-  .footer {
-    margin-top: 15vh;
-    padding-inline: 2vw;
-    font-size: 10px;
-
-    a img {
-      width: 20px;
-      height: 20px;
-    }
-  }
-}
-
-@media screen and (max-width: 680px) {
   .navContainer {
-    .appName {
-      padding: 4px 0 0 1vw;
+    padding: 0.8rem 4vw;
 
-      img {
-        height: 8vh;
-        width: 28vw;
-      }
-    }
-
-    .navLinks {
-      font-size: 16px;
-      font-weight: bold;
-      padding: 1rem 4vw;
-
-      .addMedia {
-        font-size: 16px;
-      }
+    .appName img {
+      height: 38px;
     }
   }
 
   .mediasContainer {
-    .topTitle {
-      font-size: 35px;
-    }
-  }
+    padding: 2.5rem 4vw;
 
-  .mediasContainer .mediaList .mediaItem {
-    margin-bottom: 0.6vh;
-    border-radius: 6px;
-
-    .mediaTitle {
-      padding-inline-start: 15px;
-      font-size: 20px;
-    }
-
-    .mediaOptions {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-
-      .mediaContent {
-        font-size: 10px;
-        font-size: 18px;
-        color: lightblue;
-        margin: 5px 0 !important;
-      }
-
-      img {
-        background-color: lightblue;
-        // margin-top: 1vh;
-        border-radius: 5px;
-        padding: 0 0.5vh;
-
-        &:hover {
-          background-color: #a50000;
-          transition: 0.2s ease;
-          cursor: pointer;
-        }
-      }
+    .mediasHeader .topTitle {
+      font-size: 2.6rem;
     }
   }
 }
 
-@media screen and (max-width: 590px) {
-  .footer {
-    margin-top: 10vh;
-    padding-inline: 2vw;
-    font-size: 10px;
+@media screen and (max-width: 768px) {
+  .navContainer {
     flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
     text-align: center;
+
+    .navLinks {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   .mediasContainer {
-    .topTitle {
-      font-size: 25px;
+    .mediasHeader {
+      margin-bottom: 2rem;
+
+      .topTitle {
+        font-size: 2.2rem;
+      }
+      .subtitle {
+        font-size: 0.95rem;
+      }
     }
 
-    .mediaList {
-      grid-template-columns: 1fr;
+    .mediaGrid {
+      gap: 1.5rem;
+    }
+  }
 
-      .mediaItem {
-        width: 91vw;
+  .itemContainer {
+    padding: 0 1rem;
+    margin-top: 1rem;
 
-        .mediaImg {
-          width: 91vw;
-          height: 40vw;
-          border-radius: 10px 10px 0 0;
+    .itemCover {
+      padding: 1.5rem;
+      border-radius: 16px;
+
+      .itemTitle {
+        font-size: 1.8rem;
+      }
+
+      .itemMeta {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .itemContent {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+
+        p {
+          text-align: left;
         }
+      }
 
-        .mediaTitle {
-          padding-inline-start: 20px;
-          font-size: 20px;
-        }
+      .actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
 
-        .mediaOptions {
-          padding: 5px 20px;
-
-          .mediaContent {
-            font-size: 15px;
-          }
+        .btnUpdate, .btnDelete {
+          width: 100%;
+          justify-content: center;
         }
       }
     }
   }
 
-  .navContainer .appName {
-    padding: 4px 0 0 1vw;
-
-    img {
-      height: 8vh;
-      width: 30vw;
-    }
-
-    .navLinks {
-      font-size: 15px;
-      font-weight: bold;
-      padding: 1rem 4vw;
-
-      .addMedia {
-        font-size: 12px;
-      }
-    }
+  .authCard, .formCard {
+    padding: 2rem;
   }
 
-  .addMediaContainer,
-  .updateContainer {
-    > div {
-      font-size: 1.5rem;
+  footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 2rem 4vw;
+
+    p {
+      justify-content: center;
     }
   }
 }
 
-@media screen and (max-width: 530px) {
-  .navContainer .appName {
-    padding: 4px 0 0 0;
+@media screen and (max-width: 480px) {
+  .mediasContainer .mediasHeader .topTitle {
+    font-size: 1.8rem;
+  }
 
-    img {
-      height: 8vh;
-      width: 40vw;
+  .authCard, .formCard {
+    padding: 1.5rem 1.2rem;
+    border-radius: 16px;
+
+    h2 {
+      font-size: 1.8rem;
     }
   }
 }

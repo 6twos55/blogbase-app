@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "",
+    "@fontsource/dancing-script": "^5.2.8",
     "@fontsource/inter": "^5.2.5",
     "@fontsource/poppins": "^5.2.6",
     "@testing-library/jest-dom": "^5.16.5",
