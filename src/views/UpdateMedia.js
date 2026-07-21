@@ -3,43 +3,41 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { getMedia, updateMedia } from "../routes/mediaRoutes";
 import { useAuth } from "../context/AuthContext";
 import { FaUpload, FaChevronLeft } from "react-icons/fa";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const UpdateMedia = () => {
   const { mediaId } = useParams();
   const navigate = useNavigate();
   const { user, isLoading: authLoading } = useAuth();
+  const queryClient = useQueryClient();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const [currentImageUrl, setCurrentImageUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [isUpdating, setIsUpdating] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const { data: media, isLoading: isFetching } = useQuery({
+    queryKey: ["media", mediaId],
+    queryFn: async () => {
+      const res = await getMedia(mediaId);
+      return res.data;
+    },
+  });
+
   useEffect(() => {
-    getMedia(mediaId)
-      .then((result) => {
-        const { title, content, imageUrl, authorId } = result.data;
-
-        // Route Guard: only author can edit
-        if (!authLoading && user && authorId && user.id !== authorId) {
-          navigate(`/medias/${mediaId}`);
-          return;
-        }
-
-        setTitle(title);
-        setContent(content);
-        setCurrentImageUrl(imageUrl);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching media: ", err);
-        setErrorMsg("Failed to load blog details. The post may have been deleted.");
-        setIsLoading(false);
-      });
-  }, [mediaId, user, authLoading, navigate]);
+    if (media) {
+      // Route Guard: only author can edit
+      if (!authLoading && user && media.authorId && user.id !== media.authorId) {
+        navigate(`/medias/${mediaId}`);
+        return;
+      }
+      setTitle(media.title);
+      setContent(media.content);
+      setCurrentImageUrl(media.imageUrl);
+    }
+  }, [media, user, authLoading, mediaId, navigate]);
 
   // Redirect if guest
   useEffect(() => {
@@ -47,6 +45,21 @@ const UpdateMedia = () => {
       navigate("/login");
     }
   }, [user, authLoading, navigate]);
+
+  const updateMutation = useMutation({
+    mutationFn: async (formData) => {
+      await updateMedia(mediaId, formData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["medias"]);
+      queryClient.invalidateQueries(["media", mediaId]);
+      navigate(`/medias/${mediaId}`);
+    },
+    onError: (err) => {
+      console.error("Error updating media: ", err);
+      setErrorMsg(err.response?.data?.error || "Failed to update blog. Please try again.");
+    },
+  });
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -58,7 +71,6 @@ const UpdateMedia = () => {
 
   const handleUpdateMedia = (e) => {
     e.preventDefault();
-    setIsUpdating(true);
     setErrorMsg("");
 
     const formData = new FormData();
@@ -68,19 +80,10 @@ const UpdateMedia = () => {
       formData.append("fileData", file);
     }
 
-    updateMedia(mediaId, formData)
-      .then(() => {
-        setIsUpdating(false);
-        navigate(`/medias/${mediaId}`);
-      })
-      .catch((err) => {
-        console.error("Error updating media: ", err);
-        setErrorMsg(err.response?.data?.error || "Failed to update blog. Please try again.");
-        setIsUpdating(false);
-      });
+    updateMutation.mutate(formData);
   };
 
-  if (isLoading || authLoading) {
+  if (isFetching || authLoading) {
     return <div className="loadingSpinner">Loading blog details...</div>;
   }
 
@@ -152,8 +155,8 @@ const UpdateMedia = () => {
             </div>
           </div>
 
-          <button type="submit" className="btnSubmit" disabled={isUpdating}>
-            {isUpdating ? "Saving Changes..." : "Save Changes"}
+          <button type="submit" className="btnSubmit" disabled={updateMutation.isLoading}>
+            {updateMutation.isLoading ? "Saving Changes..." : "Save Changes"}
           </button>
         </form>
       </div>

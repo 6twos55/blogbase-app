@@ -1,8 +1,8 @@
 @import "_config.scss";
 
 // Font configurations
-$header-font: "Poppins", sans-serif;
-$body-font: "Inter", sans-serif;
+$header-font: "Nunito", sans-serif;
+$body-font: "Nunito", sans-serif;
 $cursive-font: "Dancing Script", cursive;
 
 // Curated dark theme palette
@@ -58,7 +58,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 0.8rem 5vw;
+  padding: 0.5rem 5vw; // Reduced vertical padding
   background: rgba(6, 6, 19, 0.7);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(12px);
@@ -70,7 +70,7 @@ a {
     align-items: center;
 
     img {
-      height: 44px;
+      height: 52px; // Increased from 44px
       width: auto;
       object-fit: contain;
       filter: drop-shadow(0 0 4px rgba(238, 156, 3, 0.2));
@@ -120,7 +120,7 @@ a {
         background: $accent-secondary;
         color: $bg-main;
         font-weight: 600;
-        padding: 0.5rem 1.2rem;
+        padding: 0.4rem 0.9rem; // Reduced padding
         border-radius: 50px;
 
         &:hover {
@@ -142,6 +142,7 @@ a {
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
+
 
       &:hover {
         border-color: rgba($danger-color, 0.5);
@@ -165,10 +166,10 @@ a {
     margin-bottom: 3rem;
 
     .topTitle {
-      font-family: $header-font;
-      font-size: 3rem;
+      font-family: $cursive-font;
+      font-size: 3.5rem;
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: 0px;
       background: linear-gradient(135deg, $text-primary 0%, #b8ecfe 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -176,9 +177,8 @@ a {
     }
 
     .subtitle {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: $text-secondary;
-      font-family: $cursive-font;
     }
   }
 
@@ -242,9 +242,9 @@ a {
     flex: 1;
 
     .cardTitle {
-      font-family: $header-font;
-      font-size: 1.35rem;
-      font-weight: 600;
+      font-family: $cursive-font;
+      font-size: 1.5rem;
+      font-weight: 700;
       color: $text-primary;
       margin-bottom: 0.75rem;
       line-height: 1.35;
@@ -256,12 +256,11 @@ a {
     }
 
     .cardExcerpt {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: $text-secondary;
       line-height: 1.6;
       margin-bottom: 1.5rem;
       flex: 1;
-      font-family: $cursive-font;
     }
 
     .cardFooter {
@@ -353,8 +352,8 @@ a {
   margin: 3rem auto;
 
   h3 {
-    font-family: $header-font;
-    font-size: 1.8rem;
+    font-family: $cursive-font;
+    font-size: 2.2rem;
     color: $accent-color;
     margin-bottom: 0.8rem;
   }
@@ -415,8 +414,8 @@ a {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 
     .itemTitle {
-      font-family: $header-font;
-      font-size: 2.5rem;
+      font-family: $cursive-font;
+      font-size: 2.8rem;
       font-weight: 700;
       line-height: 1.25;
       color: $text-primary;
@@ -436,7 +435,6 @@ a {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        font-family: $cursive-font;
       }
 
       .metaIcon {
@@ -466,12 +464,9 @@ a {
       line-height: 1.85;
       color: #e2e8f0;
       margin-bottom: 3rem;
-      font-family: $cursive-font;
-      font-size: 1.3rem;
 
       p {
         margin-bottom: 1.5rem;
-        text-align: justify;
       }
     }
 
@@ -601,8 +596,8 @@ a {
   animation: scaleIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 
   h2 {
-    font-family: $header-font;
-    font-size: 2.2rem;
+    font-family: $cursive-font;
+    font-size: 2.6rem;
     font-weight: 700;
     color: $text-primary;
     text-align: center;
@@ -611,10 +606,9 @@ a {
 
   .subtitle {
     color: $text-secondary;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-align: center;
     margin-bottom: 2.2rem;
-    font-family: $cursive-font;
   }
 }
 
@@ -886,18 +880,18 @@ footer {
   margin-top: auto;
   justify-content: space-between;
   align-items: center;
-  padding: 2.2rem 8vw;
+  padding: 1rem 8vw; // Reduced vertical padding from 2.2rem to 1rem
   color: $text-secondary;
   background: rgba(6, 6, 19, 0.8);
   border-top: 1px solid $card-border;
-  font-size: 0.9rem;
+  font-size: 0.78rem; // Reduced font size from 0.9rem to 0.78rem
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
   p {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
   }
 
   .copyright {
@@ -907,7 +901,7 @@ footer {
   .icons {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1rem;
 
     a {
       color: $text-secondary;
@@ -919,6 +913,49 @@ footer {
         color: $accent-secondary;
         transform: translateY(-2px);
       }
+    }
+  }
+}
+
+// Pagination Styling
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+
+  .paginationButton {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: $text-secondary;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $header-font;
+
+    &:hover:not(:disabled) {
+      background: rgba(0, 229, 255, 0.1);
+      border-color: $accent-secondary;
+      color: $accent-secondary;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background: $accent-secondary;
+      border-color: $accent-secondary;
+      color: $bg-main;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
     }
   }
 }

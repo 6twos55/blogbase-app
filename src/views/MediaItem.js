@@ -1,41 +1,40 @@
-import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteMedia, getMedia } from "../routes/mediaRoutes";
 import { useAuth } from "../context/AuthContext";
 import { FaTrash, FaEdit, FaChevronLeft, FaCalendarAlt, FaUser } from "react-icons/fa";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const MediaItem = () => {
   const { mediaId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [item, setItem] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    setIsLoading(true);
-    getMedia(mediaId)
-      .then((result) => {
-        setItem(result.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching media:", err);
-        setErrorMsg("Failed to load the story. It might have been deleted.");
-        setIsLoading(false);
-      });
-  }, [mediaId]);
+  const { data: item, isLoading, error } = useQuery({
+    queryKey: ["media", mediaId],
+    queryFn: async () => {
+      const res = await getMedia(mediaId);
+      return res.data;
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      await deleteMedia(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["medias"]);
+      navigate("/");
+    },
+    onError: (err) => {
+      console.error("Error deleting media:", err);
+      window.alert("Failed to delete the story. Please try again.");
+    },
+  });
 
   const handleDeleteMedia = (id) => {
     if (window.confirm("Are you sure you want to delete this story?")) {
-      deleteMedia(id)
-        .then(() => {
-          navigate("/");
-        })
-        .catch((err) => {
-          console.error("Error deleting media:", err);
-          window.alert("Failed to delete the story. Please try again.");
-        });
+      deleteMutation.mutate(id);
     }
   };
 
@@ -53,12 +52,12 @@ const MediaItem = () => {
     );
   }
 
-  if (errorMsg || !item) {
+  if (error || !item) {
     return (
       <div className="itemContainer">
         <div className="errorContainer">
           <h2>Oops!</h2>
-          <p>{errorMsg || "Story not found."}</p>
+          <p>Failed to load the story. It might have been deleted.</p>
           <Link to="/" className="btnBack">
             <FaChevronLeft size={14} style={{ marginRight: 8 }} />
             Back to Stories
@@ -107,8 +106,14 @@ const MediaItem = () => {
             <Link to={`/update_media/${item._id}`} className="btnUpdate">
               <FaEdit size={14} style={{ marginRight: 8 }} /> Edit Story
             </Link>
-            <button onClick={() => handleDeleteMedia(item._id)} className="btnDelete" title="Delete story">
-              <FaTrash size={14} style={{ marginRight: 8 }} /> Delete Story
+            <button
+              onClick={() => handleDeleteMedia(item._id)}
+              className="btnDelete"
+              title="Delete story"
+              disabled={deleteMutation.isLoading}
+            >
+              <FaTrash size={14} style={{ marginRight: 8 }} />
+              {deleteMutation.isLoading ? "Deleting..." : "Delete Story"}
             </button>
           </div>
         )}

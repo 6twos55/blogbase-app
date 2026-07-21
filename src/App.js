@@ -15,25 +15,41 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/dancing-script/400.css";
 import "@fontsource/dancing-script/700.css";
+import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/600.css";
+import "@fontsource/nunito/700.css";
 
 import Login from "./views/Login";
 import Register from "./views/Register";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="appContainer">
-      <Navbar />
-      <Routes>
-        <Route exact path="/" element={<Medias />} />
-        <Route path="/medias/:mediaId" element={<MediaItem />} />
-        <Route path="/update_media/:mediaId" element={<UpdateMedia />} />
-        <Route path="/add_media" element={<AddMedia />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="*" element={<div className="pageNotFound"><h1>Page not found</h1></div>} />
-      </Routes>
-      <Footer />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="appContainer">
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<Medias />} />
+          <Route path="/medias/:mediaId" element={<MediaItem />} />
+          <Route path="/update_media/:mediaId" element={<UpdateMedia />} />
+          <Route path="/add_media" element={<AddMedia />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<div className="pageNotFound"><h1>Page not found</h1></div>} />
+        </Routes>
+        <Footer />
+      </div>
+    </QueryClientProvider>
   );
 }
 

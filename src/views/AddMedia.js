@@ -3,13 +3,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { addMedia } from "../routes/mediaRoutes";
 import { useAuth } from "../context/AuthContext";
 import { FaUpload, FaChevronLeft } from "react-icons/fa";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const AddMedia = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const { user, isLoading: authLoading } = useAuth();
@@ -21,6 +20,22 @@ const AddMedia = () => {
       navigate("/login");
     }
   }, [user, authLoading, navigate]);
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (formData) => {
+      await addMedia(formData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["medias"]);
+      navigate("/");
+    },
+    onError: (err) => {
+      console.error("Couldn't add media: ", err);
+      setErrorMsg(err.response?.data?.error || "Failed to create post. Please try again.");
+    },
+  });
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -37,7 +52,6 @@ const AddMedia = () => {
       return;
     }
 
-    setIsLoading(true);
     setErrorMsg("");
 
     const formData = new FormData();
@@ -45,16 +59,7 @@ const AddMedia = () => {
     formData.append("content", content);
     formData.append("fileData", file);
 
-    addMedia(formData)
-      .then(() => {
-        setIsLoading(false);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("Couldn't add media: ", err);
-        setErrorMsg(err.response?.data?.error || "Failed to create post. Please try again.");
-        setIsLoading(false);
-      });
+    mutation.mutate(formData);
   };
 
   if (authLoading) {
@@ -125,8 +130,8 @@ const AddMedia = () => {
             </div>
           </div>
 
-          <button type="submit" className="btnSubmit" disabled={isLoading}>
-            {isLoading ? "Publishing Story..." : "Publish Story"}
+          <button type="submit" className="btnSubmit" disabled={mutation.isLoading}>
+            {mutation.isLoading ? "Publishing Story..." : "Publish Story"}
           </button>
         </form>
       </div>

@@ -1,25 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getMedias } from "../routes/mediaRoutes";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaCalendarAlt, FaUser } from "react-icons/fa";
+import { FaCalendarAlt, FaUser, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
 
 const Medias = () => {
-  const [medias, setMedias] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
-  useEffect(() => {
-    getMedias()
-      .then((result) => {
-        setMedias(result.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching blogs:", err);
-        setIsLoading(false);
-      });
-  }, []);
+  const { data: medias = [], isLoading, error } = useQuery({
+    queryKey: ["medias"],
+    queryFn: async () => {
+      const res = await getMedias();
+      return res.data;
+    },
+  });
 
   if (isLoading) {
     return (
@@ -45,6 +42,23 @@ const Medias = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className="mediasContainer">
+        <div className="errorContainer">
+          <h2>Error loading stories</h2>
+          <p>Please check your connection and try again.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const totalPages = Math.ceil(medias.length / itemsPerPage);
+  const displayedMedias = medias.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="mediasContainer">
       <div className="mediasHeader">
@@ -53,46 +67,76 @@ const Medias = () => {
       </div>
 
       {medias.length >= 1 ? (
-        <div className="mediaGrid">
-          {medias.map((media) => {
-            const mediaDate = new Date(media.date);
-            const dateOptions = { day: "numeric", month: "short", year: "numeric" };
-            const formattedMediaDate = mediaDate.toLocaleDateString("en-US", dateOptions);
+        <>
+          <div className="mediaGrid">
+            {displayedMedias.map((media) => {
+              const mediaDate = new Date(media.date);
+              const dateOptions = { day: "numeric", month: "short", year: "numeric" };
+              const formattedMediaDate = mediaDate.toLocaleDateString("en-US", dateOptions);
 
-            return (
-              <article className="mediaCard" key={media._id}>
-                <Link to={`/medias/${media._id}`} className="cardLink">
-                  <div className="cardImageWrapper">
-                    <img
-                      src={media.imageUrl}
-                      alt={media.title}
-                      className="cardImage"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="cardBody">
-                    <h3 className="cardTitle">
-                      {media.title.length >= 35 ? media.title.slice(0, 35) + "..." : media.title}
-                    </h3>
-                    <p className="cardExcerpt">
-                      {media.content.length >= 80 ? media.content.slice(0, 80) + "..." : media.content}
-                    </p>
-                    <div className="cardFooter">
-                      <span className="cardAuthor">
-                        <FaUser size={12} className="metaIcon" />
-                        {media.author}
-                      </span>
-                      <span className="cardDate">
-                        <FaCalendarAlt size={12} className="metaIcon" />
-                        {formattedMediaDate}
-                      </span>
+              return (
+                <article className="mediaCard" key={media._id}>
+                  <Link to={`/medias/${media._id}`} className="cardLink">
+                    <div className="cardImageWrapper">
+                      <img
+                        src={media.imageUrl}
+                        alt={media.title}
+                        className="cardImage"
+                        loading="lazy"
+                      />
                     </div>
-                  </div>
-                </Link>
-              </article>
-            );
-          })}
-        </div>
+                    <div className="cardBody">
+                      <h3 className="cardTitle">
+                        {media.title.length >= 35 ? media.title.slice(0, 35) + "..." : media.title}
+                      </h3>
+                      <p className="cardExcerpt">
+                        {media.content.length >= 80 ? media.content.slice(0, 80) + "..." : media.content}
+                      </p>
+                      <div className="cardFooter">
+                        <span className="cardAuthor">
+                          <FaUser size={12} className="metaIcon" />
+                          {media.author}
+                        </span>
+                        <span className="cardDate">
+                          <FaCalendarAlt size={12} className="metaIcon" />
+                          {formattedMediaDate}
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="paginationContainer">
+              <button
+                className="paginationButton"
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                <FaChevronLeft size={12} />
+              </button>
+              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                <button
+                  key={page}
+                  className={`paginationButton ${currentPage === page ? "active" : ""}`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                className="paginationButton"
+                onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                disabled={currentPage === totalPages}
+              >
+                <FaChevronRight size={12} />
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="noBlogs">
           <h3>No stories to display yet</h3>
