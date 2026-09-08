@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import navLogo from "../styles/logo_dark.png";
+import navLogo from "../styles/logo_dark.svg";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {

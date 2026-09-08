@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { addMedia } from "../routes/mediaRoutes";
@@ -130,8 +131,9 @@ const AddMedia = () => {
             </div>
           </div>
 
-          <button type="submit" className="btnSubmit" disabled={mutation.isLoading}>
-            {mutation.isLoading ? "Publishing Story..." : "Publish Story"}
+          <button type="submit" className="btnSubmit" disabled={mutation.isPending}>
+            {mutation.isPending && <span className="btnSpinner" />}
+            {mutation.isPending ? "Publishing Story..." : "Publish Story"}
           </button>
         </form>
       </div>

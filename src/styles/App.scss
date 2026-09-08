@@ -468,6 +468,19 @@ a {
       p {
         margin-bottom: 1.5rem;
       }
+
+      a, .storyLink {
+        color: $accent-secondary;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        word-break: break-word;
+        transition: color 0.2s ease, text-shadow 0.2s ease;
+
+        &:hover {
+          color: lighten($accent-secondary, 15%);
+          text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+        }
+      }
     }
 
     .actions {
@@ -508,12 +521,24 @@ a {
         cursor: pointer;
         display: inline-flex;
         align-items: center;
+        gap: 0.4rem;
         transition: all 0.3s ease;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background: rgba($danger-color, 0.2);
           color: lighten($danger-color, 10%);
           transform: translateY(-1px);
+        }
+
+        &:disabled {
+          opacity: 0.65;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .btnSpinner {
+          border-color: rgba($danger-color, 0.3);
+          border-top-color: $danger-color;
         }
       }
     }
@@ -775,6 +800,10 @@ a {
   transition: all 0.3s ease;
   margin-top: 1rem;
   box-shadow: 0 4px 15px rgba(238, 156, 3, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
 
   &:hover:not(:disabled) {
     background: lighten($accent-color, 8%);
@@ -783,10 +812,28 @@ a {
   }
 
   &:disabled {
-    opacity: 0.65;
+    opacity: 0.75;
     cursor: not-allowed;
+    transform: none;
   }
 }
+
+// Inline spinner used inside buttons
+.btnSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
 
 // Error Alerts
 .errorAlert {

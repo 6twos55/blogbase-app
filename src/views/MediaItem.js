@@ -3,6 +3,7 @@ import { deleteMedia, getMedia } from "../routes/mediaRoutes";
 import { useAuth } from "../context/AuthContext";
 import { FaTrash, FaEdit, FaChevronLeft, FaCalendarAlt, FaUser } from "react-icons/fa";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import Linkify from "linkify-react";
 
 const MediaItem = () => {
   const { mediaId } = useParams();
@@ -97,23 +98,39 @@ const MediaItem = () => {
 
         <div className="itemContent">
           {item.content.split("\n").map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
+            <p key={index}>
+              <Linkify
+                options={{
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  className: "storyLink",
+                }}
+              >
+                {paragraph}
+              </Linkify>
+            </p>
           ))}
         </div>
 
         {isOwner && (
           <div className="actions">
-            <Link to={`/update_media/${item._id}`} className="btnUpdate">
+            <Link
+              to={`/update_media/${item._id}`}
+              className="btnUpdate"
+              style={{ pointerEvents: deleteMutation.isPending ? 'none' : 'auto' }}
+            >
               <FaEdit size={14} style={{ marginRight: 8 }} /> Edit Story
             </Link>
             <button
               onClick={() => handleDeleteMedia(item._id)}
               className="btnDelete"
               title="Delete story"
-              disabled={deleteMutation.isLoading}
+              disabled={deleteMutation.isPending}
             >
-              <FaTrash size={14} style={{ marginRight: 8 }} />
-              {deleteMutation.isLoading ? "Deleting..." : "Delete Story"}
+              {deleteMutation.isPending
+                ? <><span className="btnSpinner" /> Deleting...</>
+                : <><FaTrash size={14} /> Delete Story</>
+              }
             </button>
           </div>
         )}

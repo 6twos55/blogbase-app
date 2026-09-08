@@ -155,8 +155,9 @@ const UpdateMedia = () => {
             </div>
           </div>
 
-          <button type="submit" className="btnSubmit" disabled={updateMutation.isLoading}>
-            {updateMutation.isLoading ? "Saving Changes..." : "Save Changes"}
+          <button type="submit" className="btnSubmit" disabled={updateMutation.isPending}>
+            {updateMutation.isPending && <span className="btnSpinner" />}
+            {updateMutation.isPending ? "Saving Changes..." : "Save Changes"}
           </button>
         </form>
       </div>
