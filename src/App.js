@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./styles/App.scss";
 import Medias from "./views/Medias";
@@ -45,7 +45,18 @@ function App() {
           <Route path="/add_media" element={<AddMedia />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<div className="pageNotFound"><h1>Page not found</h1></div>} />
+          <Route
+            path="*"
+            element={
+              <div className="pageNotFound">
+                <h1>Page Not Found</h1>
+                <p>The story or page you are looking for doesn't exist.</p>
+                <Link to="/" className="btnBack">
+                  Back to Stories
+                </Link>
+              </div>
+            }
+          />
         </Routes>
         <Footer />
       </div>

@@ -10,7 +10,7 @@ const Medias = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  const { data: medias = [], isLoading, error } = useQuery({
+  const { data: medias = [], isLoading, error, refetch } = useQuery({
     queryKey: ["medias"],
     queryFn: async () => {
       const res = await getMedias();
@@ -48,6 +48,9 @@ const Medias = () => {
         <div className="errorContainer">
           <h2>Error loading stories</h2>
           <p>Please check your connection and try again.</p>
+          <button onClick={() => refetch()} className="btnRetry">
+            Try Again
+          </button>
         </div>
       </div>
     );

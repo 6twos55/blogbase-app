@@ -881,32 +881,49 @@ a {
   background: $card-bg;
   border: 1px solid $card-border;
   border-radius: 16px;
-  padding: 3rem;
+  padding: 3rem 2rem;
   text-align: center;
+  max-width: 580px;
+  width: 100%;
+  margin: 2rem auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(16px);
 
-  h2 {
+  h1, h2 {
     color: $danger-color;
-    font-family: $header-font;
-    font-size: 2rem;
+    font-family: $cursive-font;
+    font-size: 2.75rem;
     margin-bottom: 0.8rem;
+    line-height: 1.25;
+    word-break: break-word;
   }
 
   p {
     color: $text-secondary;
     margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1.05rem;
   }
 
-  .btnBack {
+  .btnBack, .btnRetry {
     display: inline-flex;
     align-items: center;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 0.6rem 1.5rem;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.65rem 1.6rem;
     border-radius: 8px;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: $header-font;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
 
     &:hover {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
       color: #fff;
     }
   }
@@ -914,11 +931,51 @@ a {
 
 .pageNotFound {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60vh;
-  font-family: $header-font;
-  color: $text-secondary;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem 1.5rem;
+
+  h1 {
+    font-family: $cursive-font;
+    font-size: 3.2rem;
+    color: $danger-color;
+    margin-bottom: 1rem;
+    word-break: break-word;
+    line-height: 1.2;
+  }
+
+  p {
+    font-family: $body-font;
+    color: $text-secondary;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btnBack {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.65rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: $header-font;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+      color: #fff;
+    }
+  }
 }
 
 // Footer Styling
