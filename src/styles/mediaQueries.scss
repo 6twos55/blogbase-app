@@ -45,6 +45,19 @@
       }
     }
 
+    .heroSection {
+      padding: 1.5rem 0.5rem 2.5rem;
+
+      .heroTitle {
+        font-size: 2.3rem;
+      }
+
+      .heroSubtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.6rem;
+      }
+    }
+
     .mediaGrid {
       gap: 1.5rem;
     }

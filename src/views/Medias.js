@@ -1,14 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { getMedias } from "../routes/mediaRoutes";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaCalendarAlt, FaUser, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaUser,
+  FaSearch,
+  FaTimes,
+  FaArrowDown,
+  FaCompass,
+} from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
+
+const CATEGORIES = ["All", "Mysteries", "Tech", "Culture", "Life", "Science"];
 
 const Medias = () => {
   const { user } = useAuth();
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const { data: medias = [], isLoading, error, refetch } = useQuery({
     queryKey: ["medias"],
@@ -18,12 +28,29 @@ const Medias = () => {
     },
   });
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setVisibleCount(12);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setVisibleCount(12);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    setVisibleCount(12);
+  };
+
   if (isLoading) {
     return (
       <div className="mediasContainer">
-        <div className="mediasHeader">
-          <h1 className="topTitle">All Stories</h1>
-          <p className="subtitle">Discover what's happening around the world</p>
+        <div className="heroSection skeletonHero">
+          <div className="skeletonHeroPill"></div>
+          <div className="skeletonHeroTitle"></div>
+          <div className="skeletonHeroSubtitle"></div>
+          <div className="skeletonSearchBar"></div>
         </div>
         <div className="mediaGrid">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -56,20 +83,154 @@ const Medias = () => {
     );
   }
 
-  const totalPages = Math.ceil(medias.length / itemsPerPage);
-  const displayedMedias = medias.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  // Filter stories based on search and category pills
+  const filteredMedias = medias.filter((media) => {
+    const query = searchQuery.trim().toLowerCase();
+    const title = (media.title || "").toLowerCase();
+    const content = (media.content || "").toLowerCase();
+    const author = (media.author || "").toLowerCase();
+
+    const matchesSearch =
+      !query || title.includes(query) || content.includes(query) || author.includes(query);
+
+    if (!matchesSearch) return false;
+
+    if (selectedCategory === "All") return true;
+
+    const fullText = `${title} ${content}`;
+    if (selectedCategory === "Mysteries") {
+      return (
+        fullText.includes("mystery") ||
+        fullText.includes("mysteries") ||
+        fullText.includes("ancient") ||
+        fullText.includes("strange") ||
+        fullText.includes("unsolved") ||
+        fullText.includes("secret") ||
+        fullText.includes("legend")
+      );
+    }
+    if (selectedCategory === "Tech") {
+      return (
+        fullText.includes("tech") ||
+        fullText.includes("code") ||
+        fullText.includes("ai") ||
+        fullText.includes("software") ||
+        fullText.includes("computer") ||
+        fullText.includes("digital") ||
+        fullText.includes("data") ||
+        fullText.includes("web")
+      );
+    }
+    if (selectedCategory === "Culture") {
+      return (
+        fullText.includes("culture") ||
+        fullText.includes("art") ||
+        fullText.includes("history") ||
+        fullText.includes("music") ||
+        fullText.includes("book") ||
+        fullText.includes("travel") ||
+        fullText.includes("society")
+      );
+    }
+    if (selectedCategory === "Life") {
+      return (
+        fullText.includes("life") ||
+        fullText.includes("mind") ||
+        fullText.includes("story") ||
+        fullText.includes("people") ||
+        fullText.includes("growth") ||
+        fullText.includes("journey") ||
+        fullText.includes("thought")
+      );
+    }
+    if (selectedCategory === "Science") {
+      return (
+        fullText.includes("science") ||
+        fullText.includes("space") ||
+        fullText.includes("universe") ||
+        fullText.includes("physics") ||
+        fullText.includes("nature") ||
+        fullText.includes("earth") ||
+        fullText.includes("planet")
+      );
+    }
+
+    return true;
+  });
+
+  const displayedMedias = filteredMedias.slice(0, visibleCount);
 
   return (
     <div className="mediasContainer">
-      <div className="mediasHeader">
-        <h1 className="topTitle">All Stories</h1>
-        <p className="subtitle">Discover what's happening around the world</p>
+      {/* ── Rich Hero Section ───────────────────────────── */}
+      <section className="heroSection">
+        <div className="heroBadge">
+          <FaCompass className="heroBadgeIcon" />
+          <span>Explore Perspectives & Chronicles</span>
+        </div>
+        <h1 className="heroTitle">
+          Strange Stories. Ancient Mysteries. <span className="highlightText">Unanswered Questions.</span>
+        </h1>
+        <p className="heroSubtitle">
+          Discover hand-crafted stories, curious anomalies, and fresh ideas published by
+          curious minds across the globe.
+        </p>
+
+        {/* Search Bar */}
+        <div className="heroSearchContainer">
+          <div className="searchBarWrapper">
+            <FaSearch className="searchIcon" />
+            <input
+              type="text"
+              placeholder="Search stories, topics, or authors..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="searchInput"
+            />
+            {searchQuery && (
+              <button
+                className="btnClearSearch"
+                onClick={clearSearch}
+                title="Clear search"
+                aria-label="Clear search query"
+              >
+                <FaTimes size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div className="filterPillsContainer">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              className={`filterPill ${selectedCategory === cat ? "active" : ""}`}
+              onClick={() => handleCategorySelect(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Stories Feed ─────────────────────────────────── */}
+      <div className="storiesHeaderBar">
+        <div className="feedTitleWrapper">
+          <h2 className="feedTitle">
+            {selectedCategory === "All" ? "All Stories" : `${selectedCategory} Stories`}
+          </h2>
+          <span className="feedCount">({filteredMedias.length})</span>
+        </div>
+
+        {user && (
+          <Link to="/add_media" className="btnFeedAdd">
+            + New Story
+          </Link>
+        )}
       </div>
 
-      {medias.length >= 1 ? (
+      {filteredMedias.length >= 1 ? (
         <>
           <div className="mediaGrid">
             {displayedMedias.map((media) => {
@@ -90,10 +251,14 @@ const Medias = () => {
                     </div>
                     <div className="cardBody">
                       <h3 className="cardTitle">
-                        {media.title.length >= 35 ? media.title.slice(0, 35) + "..." : media.title}
+                        {media.title.length >= 40
+                          ? media.title.slice(0, 40) + "..."
+                          : media.title}
                       </h3>
                       <p className="cardExcerpt">
-                        {media.content.length >= 80 ? media.content.slice(0, 80) + "..." : media.content}
+                        {media.content.length >= 85
+                          ? media.content.slice(0, 85) + "..."
+                          : media.content}
                       </p>
                       <div className="cardFooter">
                         <span className="cardAuthor">
@@ -112,46 +277,57 @@ const Medias = () => {
             })}
           </div>
 
-          {totalPages > 1 && (
-            <div className="paginationContainer">
+          {/* ── Load More Functionality ────────────────────────── */}
+          {visibleCount < filteredMedias.length ? (
+            <div className="loadMoreContainer">
               <button
-                className="paginationButton"
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                disabled={currentPage === 1}
+                className="btnLoadMore"
+                onClick={() => setVisibleCount((prev) => prev + 12)}
               >
-                <FaChevronLeft size={12} />
+                <FaArrowDown size={12} style={{ marginRight: 8 }} />
+                Load More Stories ({filteredMedias.length - visibleCount} more)
               </button>
-              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
-                <button
-                  key={page}
-                  className={`paginationButton ${currentPage === page ? "active" : ""}`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </button>
-              ))}
-              <button
-                className="paginationButton"
-                onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                disabled={currentPage === totalPages}
-              >
-                <FaChevronRight size={12} />
-              </button>
+              <p className="loadMoreCounter">
+                Showing {displayedMedias.length} of {filteredMedias.length} stories
+              </p>
+            </div>
+          ) : (
+            <div className="allLoadedNotice">
+              <p>✓ You've viewed all {filteredMedias.length} stories</p>
             </div>
           )}
         </>
       ) : (
         <div className="noBlogs">
-          <h3>No stories to display yet</h3>
-          <p>Be the first to share a story on BlogBase.</p>
-          {user ? (
-            <Link to="/add_media" className="btnAddFirst">
-              Create a Blog Post
-            </Link>
+          {searchQuery || selectedCategory !== "All" ? (
+            <>
+              <h3>No matching stories found</h3>
+              <p>Try searching for a different keyword or select another topic.</p>
+              <button
+                className="btnResetFilter"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("All");
+                  setVisibleCount(12);
+                }}
+              >
+                Reset Search & Filters
+              </button>
+            </>
           ) : (
-            <Link to="/login" className="btnAddFirst">
-              Sign In to Post
-            </Link>
+            <>
+              <h3>No stories to display yet</h3>
+              <p>Be the first to share a story on BlogBase.</p>
+              {user ? (
+                <Link to="/add_media" className="btnAddFirst">
+                  Create a Blog Post
+                </Link>
+              ) : (
+                <Link to="/login" className="btnAddFirst">
+                  Sign In to Post
+                </Link>
+              )}
+            </>
           )}
         </div>
       )}

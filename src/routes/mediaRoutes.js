@@ -34,6 +34,14 @@ export const getMe = () => {
   return api.get("/auth/me");
 };
 
+export const updateProfile = (profileData) => {
+  return api.put("/auth/profile", profileData);
+};
+
+export const deleteAccount = () => {
+  return api.delete("/auth/account");
+};
+
 // Media/Blog endpoints
 export const getMedias = () => {
   return api.get("/medias");
@@ -61,6 +69,10 @@ export const updateMedia = (mediaId, formData) => {
 
 export const deleteMedia = (mediaId) => {
   return api.delete(`/medias/${mediaId}`);
+};
+
+export const likeMedia = (mediaId) => {
+  return api.post(`/medias/${mediaId}/like`);
 };
 
 export default api;

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { getMe, loginUser, registerUser } from "../routes/mediaRoutes";
+import { getMe, loginUser, registerUser, updateProfile, deleteAccount } from "../routes/mediaRoutes";
 
 const AuthContext = createContext();
 
@@ -67,6 +67,44 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateAccount = async (profileData) => {
+    setIsLoading(true);
+    try {
+      const res = await updateProfile(profileData);
+      const { token: receivedToken, user: updatedUser } = res.data;
+      if (receivedToken) {
+        localStorage.setItem("blogbase_token", receivedToken);
+        setToken(receivedToken);
+      }
+      setUser(updatedUser);
+      setIsLoading(false);
+      return { success: true, message: res.data.message };
+    } catch (err) {
+      console.error("Profile update failed:", err);
+      setIsLoading(false);
+      return {
+        success: false,
+        error: err.response?.data?.error || "Failed to update profile.",
+      };
+    }
+  };
+
+  const deleteUserAccount = async () => {
+    setIsLoading(true);
+    try {
+      await deleteAccount();
+      logout();
+      return { success: true };
+    } catch (err) {
+      console.error("Account deletion failed:", err);
+      setIsLoading(false);
+      return {
+        success: false,
+        error: err.response?.data?.error || "Failed to delete account.",
+      };
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem("blogbase_token");
     setToken(null);
@@ -83,6 +121,8 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        updateAccount,
+        deleteUserAccount,
       }}
     >
       {children}
