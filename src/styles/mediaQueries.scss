@@ -39,6 +39,7 @@
 
   // ── Hamburger & dropdown ───────────────────────────────
   .mobileMenuWrapper {
+    display: block;
     position: relative;
   }
 
@@ -219,41 +220,29 @@
     }
   }
 
-  // ── Account Modal on tablet ─────────────────────────────
+  // ── Account Modal on mobile ─────────────────────────────
   .modalOverlay {
-    padding: 1rem;
-    align-items: flex-end; // slide up from bottom on mobile
+    padding: 1rem;  // reduce outer backdrop padding
+    align-items: center;
   }
 
   .accountModalCard {
-    border-radius: 20px 20px 16px 16px;
-    padding: 1.6rem 1.4rem;
+    padding: 1.6rem 1.5rem; // slightly less than desktop 2.2rem but still roomy
 
     .modalHeader {
       margin-bottom: 1.1rem;
 
       .modalUserBadge {
-        gap: 0.65rem;
+        gap: 0.7rem;
 
-        .avatarCircle {
-          width: 38px;
-          height: 38px;
-          font-size: 0.95rem;
-        }
-
+        // avatar stays at full size — just reduce the label text
         h3 {
           font-size: 1.05rem;
         }
 
         .modalSubtitle {
-          font-size: 0.78rem;
+          font-size: 0.8rem;
         }
-      }
-
-      .btnCloseModal {
-        width: 30px;
-        height: 30px;
-        flex-shrink: 0;
       }
     }
 
@@ -261,15 +250,15 @@
       margin-bottom: 1.1rem;
 
       .tabButton {
-        padding: 0.55rem 0.6rem;
-        font-size: 0.82rem;
+        padding: 0.6rem 0.7rem;
+        font-size: 0.83rem;
       }
     }
 
     .alertSuccess,
     .alertError {
       padding: 0.6rem 0.8rem;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       margin-bottom: 0.9rem;
     }
 
@@ -278,11 +267,11 @@
 
       .formField {
         label {
-          font-size: 0.8rem;
+          font-size: 0.82rem;
         }
 
         .inputWrapper input {
-          padding: 0.65rem 0.85rem;
+          padding: 0.7rem 0.9rem;
           font-size: 0.88rem;
         }
       }
@@ -291,7 +280,7 @@
         margin: 0.7rem 0 0.4rem;
 
         span {
-          font-size: 0.73rem;
+          font-size: 0.75rem;
         }
       }
     }
@@ -302,8 +291,8 @@
 
       .btnCancel,
       .btnSaveProfile {
-        padding: 0.55rem 1.1rem;
-        font-size: 0.85rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.86rem;
       }
     }
 
@@ -315,28 +304,28 @@
         gap: 0.75rem;
 
         h4 {
-          font-size: 0.88rem;
+          font-size: 0.9rem;
         }
 
         p {
-          font-size: 0.8rem;
+          font-size: 0.82rem;
         }
       }
 
       .formField {
         label {
-          font-size: 0.8rem;
+          font-size: 0.82rem;
         }
 
         input {
-          padding: 0.65rem 0.85rem;
+          padding: 0.7rem 0.9rem;
           font-size: 0.88rem;
         }
       }
 
       .btnDeleteAccount {
-        padding: 0.55rem 1rem;
-        font-size: 0.82rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.84rem;
       }
     }
   }
@@ -367,25 +356,25 @@
     }
   }
 
-  // ── Modal tighter on small phones ─────────────────────
+  // ── Modal on small phones ─────────────────────────────
   .modalOverlay {
     padding: 0.75rem;
   }
 
   .accountModalCard {
-    padding: 1.2rem 1rem;
-    border-radius: 18px 18px 14px 14px;
+    padding: 1.3rem 1.1rem;
 
     .modalHeader {
       margin-bottom: 0.9rem;
 
       .modalUserBadge {
-        gap: 0.5rem;
+        gap: 0.55rem;
 
         .avatarCircle {
-          width: 32px;
-          height: 32px;
-          font-size: 0.82rem;
+          width: 38px;   // keep avatar legible
+          height: 38px;
+          font-size: 0.9rem;
+          flex-shrink: 0;
         }
 
         h3 {
@@ -393,34 +382,38 @@
         }
 
         .modalSubtitle {
-          font-size: 0.72rem;
+          font-size: 0.74rem;
         }
 
         .adminTag {
-          font-size: 0.65rem;
+          font-size: 0.66rem;
           padding: 0.1rem 0.38rem;
         }
       }
 
       .btnCloseModal {
-        width: 26px;
-        height: 26px;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
       }
     }
 
     .modalTabs .tabButton {
-      padding: 0.45rem 0.4rem;
-      font-size: 0.77rem;
-      gap: 0.3rem;
+      padding: 0.5rem 0.5rem;
+      font-size: 0.78rem;
     }
 
     .modalForm {
-      gap: 0.7rem;
+      gap: 0.75rem;
 
       .formField {
+        label {
+          font-size: 0.78rem;
+        }
+
         .inputWrapper input {
-          padding: 0.55rem 0.75rem;
-          font-size: 0.84rem;
+          padding: 0.6rem 0.8rem;
+          font-size: 0.85rem;
         }
       }
     }
@@ -430,27 +423,27 @@
 
       .btnCancel,
       .btnSaveProfile {
-        padding: 0.5rem 0.9rem;
-        font-size: 0.8rem;
+        padding: 0.55rem 1rem;
+        font-size: 0.82rem;
       }
     }
 
     .dangerSection {
       .dangerWarningBox {
-        padding: 0.75rem 0.8rem;
+        padding: 0.8rem;
 
         h4 {
-          font-size: 0.82rem;
+          font-size: 0.84rem;
         }
 
         p {
-          font-size: 0.75rem;
+          font-size: 0.76rem;
         }
       }
 
       .btnDeleteAccount {
-        font-size: 0.78rem;
-        padding: 0.48rem 0.85rem;
+        font-size: 0.8rem;
+        padding: 0.52rem 0.9rem;
       }
     }
   }

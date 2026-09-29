@@ -152,13 +152,15 @@ a {
     }
   }
 
-  // Hide hamburger on desktop, show desktop-only items
-  .mobileMenuWrapper {
-    display: none;
-  }
-
   .desktopOnly {
     display: flex !important;
+  }
+}
+
+// Hide hamburger on desktop screens
+@media screen and (min-width: 769px) {
+  .mobileMenuWrapper {
+    display: none !important;
   }
 }
 
@@ -1273,8 +1275,15 @@ footer {
   color: $accent-color;
   transition: all 0.3s ease;
 
-  &:hover {
-    transform: rotate(20deg) scale(1.08);
+  @media (hover: hover) {
+    &:hover {
+      transform: rotate(20deg) scale(1.08);
+      background: rgba(238, 156, 3, 0.15);
+      border-color: rgba(238, 156, 3, 0.3);
+    }
+  }
+
+  &:active {
     background: rgba(238, 156, 3, 0.15);
     border-color: rgba(238, 156, 3, 0.3);
   }
