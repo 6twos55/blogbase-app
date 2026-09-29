@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import navLogo from "../styles/logo_dark.svg";
 import { useAuth } from "../context/AuthContext";
 import AccountModal from "./AccountModal";
-import { FaSun, FaMoon, FaUserCog, FaCrown } from "react-icons/fa";
+import { FaSun, FaMoon, FaUserCog, FaCrown, FaBars, FaTimes, FaPlus, FaSignOutAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("blogbase_theme") || "dark";
   });
@@ -24,8 +26,26 @@ const Navbar = () => {
     }
   }, [theme]);
 
+  // Close mobile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMobileMenuOpen]);
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
+  const handleLogout = () => {
+    setIsMobileMenuOpen(false);
+    logout();
   };
 
   return (
@@ -67,12 +87,42 @@ const Navbar = () => {
                 <FaUserCog size={13} className="settingsIcon" />
               </button>
 
-              <Link to="/add_media" className="addMedia">
+              {/* Desktop-only: Add Blog & Logout */}
+              <Link to="/add_media" className="addMedia desktopOnly">
                 Add Blog
               </Link>
-              <button onClick={logout} className="btnLogout">
+              <button onClick={logout} className="btnLogout desktopOnly">
                 Logout
               </button>
+
+              {/* Mobile hamburger trigger */}
+              <div className="mobileMenuWrapper" ref={menuRef}>
+                <button
+                  className="btnHamburger"
+                  aria-label="More options"
+                  aria-expanded={isMobileMenuOpen}
+                  onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                >
+                  {isMobileMenuOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
+                </button>
+
+                {isMobileMenuOpen && (
+                  <div className="mobileDropdown">
+                    <Link
+                      to="/add_media"
+                      className="mobileDropdownItem"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <FaPlus size={13} />
+                      Add Blog
+                    </Link>
+                    <button className="mobileDropdownItem danger" onClick={handleLogout}>
+                      <FaSignOutAlt size={13} />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <>

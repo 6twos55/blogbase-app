@@ -151,6 +151,80 @@ a {
       }
     }
   }
+
+  // Hide hamburger on desktop, show desktop-only items
+  .mobileMenuWrapper {
+    display: none;
+  }
+
+  .desktopOnly {
+    display: flex !important;
+  }
+}
+
+// ── Hamburger dropdown (base styles) ───────────────────────
+.btnHamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $text-primary;
+  }
+}
+
+.mobileDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: #0d0d26;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 0.4rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  animation: scaleIn 0.18s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+
+  .mobileDropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: $text-primary;
+    font-family: $header-font;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s ease, color 0.18s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    &.danger {
+      color: #f87171;
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.1);
+        color: #fca5a5;
+      }
+    }
+  }
 }
 
 // Main Blog Grid Container
@@ -2061,6 +2135,40 @@ body.theme-light {
 
     .settingsIcon {
       color: #64748b !important;
+    }
+  }
+
+  .btnHamburger {
+    background: rgba(37, 99, 235, 0.07) !important;
+    border-color: rgba(37, 99, 235, 0.18) !important;
+    color: #475569 !important;
+
+    &:hover {
+      background: rgba(37, 99, 235, 0.13) !important;
+      color: #1e3a8a !important;
+    }
+  }
+
+  .mobileDropdown {
+    background: #f0f6ff !important;
+    border-color: rgba(37, 99, 235, 0.18) !important;
+    box-shadow: 0 12px 32px rgba(28, 57, 102, 0.15) !important;
+
+    .mobileDropdownItem {
+      color: #1a2a44 !important;
+
+      &:hover {
+        background: rgba(37, 99, 235, 0.07) !important;
+      }
+
+      &.danger {
+        color: #dc2626 !important;
+
+        &:hover {
+          background: rgba(239, 68, 68, 0.08) !important;
+          color: #b91c1c !important;
+        }
+      }
     }
   }
 
