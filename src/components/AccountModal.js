@@ -182,7 +182,9 @@ const AccountModal = ({ isOpen, onClose }) => {
                   type={showCurrentPass ? "text" : "password"}
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="inputCurrentPass"
                   placeholder="Required only if changing password"
+                  data-placeholder-sm="Optional"
                 />
                 <button
                   type="button"
@@ -232,6 +234,7 @@ const AccountModal = ({ isOpen, onClose }) => {
             )}
 
             <div className="modalFooterActions">
+              {/* Cancel hidden on mobile — the X button serves as cancel */}
               <button type="button" className="btnCancel" onClick={onClose} disabled={isSubmitting}>
                 Cancel
               </button>
@@ -267,6 +270,7 @@ const AccountModal = ({ isOpen, onClose }) => {
             </div>
 
             <div className="modalFooterActions">
+              {/* Cancel hidden on mobile — the X button serves as cancel */}
               <button type="button" className="btnCancel" onClick={onClose} disabled={isSubmitting}>
                 Cancel
               </button>
@@ -276,8 +280,9 @@ const AccountModal = ({ isOpen, onClose }) => {
                 onClick={handleDeleteAccount}
                 disabled={isSubmitting || deleteConfirmText.trim().toLowerCase() !== "delete"}
               >
-                <FaTrash size={12} style={{ marginRight: 6 }} />
-                {isSubmitting ? "Deleting..." : "Permanently Delete Account"}
+                <FaTrash size={12} style={{ marginRight: 6, flexShrink: 0 }} />
+                <span className="deleteLabelFull">{isSubmitting ? "Deleting..." : "Permanently Delete Account"}</span>
+                <span className="deleteLabelShort">{isSubmitting ? "Deleting..." : "Delete"}</span>
               </button>
             </div>
           </div>

@@ -334,60 +334,66 @@
 @media screen and (max-width: 480px) {
   // ── Navbar on small phones ─────────────────────────────
   .navContainer {
-    padding: 0.5rem 3.5vw;
+    padding: 0.55rem 5vw; // more breathing room on sides
+
+    .appName img {
+      height: 36px; // slightly larger logo
+    }
 
     .navLinks {
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
 
     .userProfileTrigger {
-      padding: 0.28rem 0.6rem;
-      gap: 0.4rem;
+      padding: 0.3rem 0.55rem;
+      gap: 0.35rem;
 
       .navAvatar {
-        width: 22px;
-        height: 22px;
-        font-size: 0.7rem;
+        width: 24px;
+        height: 24px;
+        font-size: 0.72rem;
+        flex-shrink: 0;
       }
 
+      // Hide greeting text — only avatar, crown & settings icon remain
       .userGreeting {
-        font-size: 0.78rem;
+        display: none;
       }
     }
   }
 
   // ── Modal on small phones ─────────────────────────────
   .modalOverlay {
-    padding: 0.75rem;
+    padding: 0.6rem 0.5rem; // tight horizontal backdrop
   }
 
   .accountModalCard {
-    padding: 1.3rem 1.1rem;
+    padding: 1.2rem 0.9rem; // less horizontal padding
 
     .modalHeader {
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.85rem;
 
       .modalUserBadge {
-        gap: 0.55rem;
+        gap: 0.5rem;
 
         .avatarCircle {
-          width: 38px;   // keep avatar legible
-          height: 38px;
-          font-size: 0.9rem;
+          width: 36px;
+          height: 36px;
+          font-size: 0.85rem;
           flex-shrink: 0;
         }
 
         h3 {
-          font-size: 0.95rem;
+          font-size: 0.9rem;
         }
 
         .modalSubtitle {
-          font-size: 0.74rem;
+          font-size: 0.72rem;
         }
 
         .adminTag {
-          font-size: 0.66rem;
-          padding: 0.1rem 0.38rem;
+          font-size: 0.64rem;
+          padding: 0.1rem 0.35rem;
         }
       }
 
@@ -399,51 +405,103 @@
     }
 
     .modalTabs .tabButton {
-      padding: 0.5rem 0.5rem;
+      padding: 0.48rem 0.45rem;
+      font-size: 0.76rem;
+    }
+
+    .alertSuccess,
+    .alertError {
+      padding: 0.55rem 0.7rem;
       font-size: 0.78rem;
+      margin-bottom: 0.8rem;
     }
 
     .modalForm {
-      gap: 0.75rem;
+      gap: 0.7rem;
 
       .formField {
         label {
-          font-size: 0.78rem;
+          font-size: 0.76rem;
         }
 
         .inputWrapper input {
-          padding: 0.6rem 0.8rem;
-          font-size: 0.85rem;
+          padding: 0.58rem 0.75rem;
+          font-size: 0.83rem;
         }
+
+        // Override placeholder for current password on small screens
+        .inputCurrentPass::placeholder {
+          content: "Optional";
+          font-size: 0.83rem;
+        }
+        // CSS-only placeholder override (works in most browsers)
+        .inputCurrentPass:placeholder-shown {
+          font-size: 0.83rem;
+        }
+      }
+
+      .divider span {
+        font-size: 0.72rem;
       }
     }
 
     .modalFooterActions {
-      margin-top: 1rem;
+      margin-top: 0.9rem;
+      gap: 0.5rem;
 
-      .btnCancel,
+      // Cancel is hidden — the ✕ in the header acts as cancel
+      .btnCancel {
+        display: none;
+      }
+
       .btnSaveProfile {
-        padding: 0.55rem 1rem;
-        font-size: 0.82rem;
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 0.84rem;
+        justify-content: center;
       }
     }
 
     .dangerSection {
+      gap: 0.8rem;
+
       .dangerWarningBox {
-        padding: 0.8rem;
+        padding: 0.75rem 0.8rem;
 
         h4 {
-          font-size: 0.84rem;
+          font-size: 0.82rem;
         }
 
         p {
+          font-size: 0.74rem;
+        }
+      }
+
+      .formField {
+        label {
           font-size: 0.76rem;
+        }
+
+        input {
+          padding: 0.58rem 0.75rem;
+          font-size: 0.83rem;
         }
       }
 
       .btnDeleteAccount {
-        font-size: 0.8rem;
-        padding: 0.52rem 0.9rem;
+        font-size: 0.82rem;
+        padding: 0.55rem 0.9rem;
+        width: 100%;
+        justify-content: center;
+
+        // Show short label, hide long one
+        .deleteLabelFull {
+          display: none;
+        }
+
+        .deleteLabelShort {
+          display: inline;
+        }
       }
     }
   }
@@ -503,3 +561,4 @@
     font-size: 0.82rem;
   }
 }
+
