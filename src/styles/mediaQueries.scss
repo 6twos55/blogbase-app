@@ -90,7 +90,9 @@
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.18s ease, color 0.18s ease;
+      transition:
+        background 0.18s ease,
+        color 0.18s ease;
 
       &:hover {
         background: rgba(255, 255, 255, 0.07);
@@ -170,7 +172,8 @@
         width: 100%;
         gap: 0.75rem;
 
-        .btnUpdate, .btnDelete {
+        .btnUpdate,
+        .btnDelete {
           width: 100%;
           justify-content: center;
         }
@@ -178,7 +181,8 @@
     }
   }
 
-  .authCard, .formCard {
+  .authCard,
+  .formCard {
     padding: 2rem;
   }
 
@@ -186,7 +190,8 @@
     padding: 2.2rem 1.5rem;
     margin: 1.5rem auto;
 
-    h1, h2 {
+    h1,
+    h2 {
       font-size: 2.2rem;
     }
 
@@ -222,7 +227,7 @@
 
   // ── Account Modal on mobile ─────────────────────────────
   .modalOverlay {
-    padding: 1rem;  // reduce outer backdrop padding
+    padding: 1rem; // reduce outer backdrop padding
     align-items: center;
   }
 
@@ -372,6 +377,8 @@
 
     .modalHeader {
       margin-bottom: 0.85rem;
+      justify-content: flex-start;
+      padding-right: 1.7rem;
 
       .modalUserBadge {
         gap: 0.5rem;
@@ -398,6 +405,9 @@
       }
 
       .btnCloseModal {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
         width: 28px;
         height: 28px;
         flex-shrink: 0;
@@ -429,13 +439,7 @@
           font-size: 0.83rem;
         }
 
-        // Override placeholder for current password on small screens
         .inputCurrentPass::placeholder {
-          content: "Optional";
-          font-size: 0.83rem;
-        }
-        // CSS-only placeholder override (works in most browsers)
-        .inputCurrentPass:placeholder-shown {
           font-size: 0.83rem;
         }
       }
@@ -511,7 +515,8 @@
     font-size: 1.8rem;
   }
 
-  .authCard, .formCard {
+  .authCard,
+  .formCard {
     padding: 1.5rem 1.2rem;
     border-radius: 16px;
 
@@ -525,7 +530,8 @@
     border-radius: 12px;
     margin: 1rem auto;
 
-    h1, h2 {
+    h1,
+    h2 {
       font-size: 1.85rem;
       margin-bottom: 0.6rem;
     }
@@ -535,7 +541,8 @@
       margin-bottom: 1.25rem;
     }
 
-    .btnBack, .btnRetry {
+    .btnBack,
+    .btnRetry {
       width: 100%;
       justify-content: center;
       padding: 0.75rem 1rem;
@@ -561,4 +568,3 @@
     font-size: 0.82rem;
   }
 }
-

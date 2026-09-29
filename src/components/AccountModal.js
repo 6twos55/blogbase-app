@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaUser, FaTrash, FaTimes, FaEye, FaEyeSlash, FaCrown, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
+import {
+  FaUser,
+  FaTrash,
+  FaTimes,
+  FaEye,
+  FaEyeSlash,
+  FaCrown,
+  FaCheckCircle,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 
 const AccountModal = ({ isOpen, onClose }) => {
   const { user, updateAccount, deleteUserAccount } = useAuth();
@@ -18,6 +27,17 @@ const AccountModal = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const smallScreenQuery = window.matchMedia("(max-width: 480px)");
+    const updateScreenSize = () => setIsSmallScreen(smallScreenQuery.matches);
+
+    updateScreenSize();
+    smallScreenQuery.addEventListener("change", updateScreenSize);
+    return () =>
+      smallScreenQuery.removeEventListener("change", updateScreenSize);
+  }, []);
 
   if (!isOpen || !user) return null;
 
@@ -33,7 +53,9 @@ const AccountModal = ({ isOpen, onClose }) => {
 
     if (newPassword) {
       if (!currentPassword) {
-        setErrorMsg("Please enter your current password to set a new password.");
+        setErrorMsg(
+          "Please enter your current password to set a new password.",
+        );
         return;
       }
       if (newPassword.length < 6) {
@@ -73,7 +95,11 @@ const AccountModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    if (!window.confirm("Are you 100% sure? All your published stories will also be deleted.")) {
+    if (
+      !window.confirm(
+        "Are you 100% sure? All your published stories will also be deleted.",
+      )
+    ) {
       return;
     }
 
@@ -91,7 +117,12 @@ const AccountModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="modalOverlay" onClick={onClose} role="dialog" aria-modal="true">
+    <div
+      className="modalOverlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="accountModalCard" onClick={(e) => e.stopPropagation()}>
         <div className="modalHeader">
           <div className="modalUserBadge">
@@ -110,7 +141,11 @@ const AccountModal = ({ isOpen, onClose }) => {
               </p>
             </div>
           </div>
-          <button className="btnCloseModal" onClick={onClose} aria-label="Close dialog">
+          <button
+            className="btnCloseModal"
+            onClick={onClose}
+            aria-label="Close dialog"
+          >
             <FaTimes size={16} />
           </button>
         </div>
@@ -142,14 +177,20 @@ const AccountModal = ({ isOpen, onClose }) => {
 
         {successMsg && (
           <div className="alertSuccess">
-            <FaCheckCircle size={14} style={{ marginRight: 8, flexShrink: 0 }} />
+            <FaCheckCircle
+              size={14}
+              style={{ marginRight: 8, flexShrink: 0 }}
+            />
             {successMsg}
           </div>
         )}
 
         {errorMsg && (
           <div className="alertError">
-            <FaExclamationTriangle size={14} style={{ marginRight: 8, flexShrink: 0 }} />
+            <FaExclamationTriangle
+              size={14}
+              style={{ marginRight: 8, flexShrink: 0 }}
+            />
             {errorMsg}
           </div>
         )}
@@ -183,8 +224,11 @@ const AccountModal = ({ isOpen, onClose }) => {
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   className="inputCurrentPass"
-                  placeholder="Required only if changing password"
-                  data-placeholder-sm="Optional"
+                  placeholder={
+                    isSmallScreen
+                      ? "Optional"
+                      : "Required only if changing password"
+                  }
                 />
                 <button
                   type="button"
@@ -192,7 +236,11 @@ const AccountModal = ({ isOpen, onClose }) => {
                   onClick={() => setShowCurrentPass(!showCurrentPass)}
                   title={showCurrentPass ? "Hide password" : "Show password"}
                 >
-                  {showCurrentPass ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+                  {showCurrentPass ? (
+                    <FaEyeSlash size={14} />
+                  ) : (
+                    <FaEye size={14} />
+                  )}
                 </button>
               </div>
             </div>
@@ -220,7 +268,9 @@ const AccountModal = ({ isOpen, onClose }) => {
 
             {newPassword.length > 0 && (
               <div className="formField">
-                <label htmlFor="modalConfirmNewPass">Confirm New Password</label>
+                <label htmlFor="modalConfirmNewPass">
+                  Confirm New Password
+                </label>
                 <div className="inputWrapper">
                   <input
                     id="modalConfirmNewPass"
@@ -235,10 +285,19 @@ const AccountModal = ({ isOpen, onClose }) => {
 
             <div className="modalFooterActions">
               {/* Cancel hidden on mobile — the X button serves as cancel */}
-              <button type="button" className="btnCancel" onClick={onClose} disabled={isSubmitting}>
+              <button
+                type="button"
+                className="btnCancel"
+                onClick={onClose}
+                disabled={isSubmitting}
+              >
                 Cancel
               </button>
-              <button type="submit" className="btnSaveProfile" disabled={isSubmitting}>
+              <button
+                type="submit"
+                className="btnSaveProfile"
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? "Saving..." : "Save Changes"}
               </button>
             </div>
@@ -250,8 +309,9 @@ const AccountModal = ({ isOpen, onClose }) => {
               <div>
                 <h4>Permanent Account Deletion</h4>
                 <p>
-                  Once you delete your account, there is no going back. All your blog stories,
-                  comments, and profile data will be permanently removed.
+                  Once you delete your account, there is no going back. All your
+                  blog stories, comments, and profile data will be permanently
+                  removed.
                 </p>
               </div>
             </div>
@@ -271,18 +331,30 @@ const AccountModal = ({ isOpen, onClose }) => {
 
             <div className="modalFooterActions">
               {/* Cancel hidden on mobile — the X button serves as cancel */}
-              <button type="button" className="btnCancel" onClick={onClose} disabled={isSubmitting}>
+              <button
+                type="button"
+                className="btnCancel"
+                onClick={onClose}
+                disabled={isSubmitting}
+              >
                 Cancel
               </button>
               <button
                 type="button"
                 className="btnDeleteAccount"
                 onClick={handleDeleteAccount}
-                disabled={isSubmitting || deleteConfirmText.trim().toLowerCase() !== "delete"}
+                disabled={
+                  isSubmitting ||
+                  deleteConfirmText.trim().toLowerCase() !== "delete"
+                }
               >
                 <FaTrash size={12} style={{ marginRight: 6, flexShrink: 0 }} />
-                <span className="deleteLabelFull">{isSubmitting ? "Deleting..." : "Permanently Delete Account"}</span>
-                <span className="deleteLabelShort">{isSubmitting ? "Deleting..." : "Delete"}</span>
+                <span className="deleteLabelFull">
+                  {isSubmitting ? "Deleting..." : "Permanently Delete Account"}
+                </span>
+                <span className="deleteLabelShort">
+                  {isSubmitting ? "Deleting..." : "Delete"}
+                </span>
               </button>
             </div>
           </div>

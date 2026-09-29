@@ -3,7 +3,16 @@ import { Link } from "react-router-dom";
 import navLogo from "../styles/logo_dark.svg";
 import { useAuth } from "../context/AuthContext";
 import AccountModal from "./AccountModal";
-import { FaSun, FaMoon, FaUserCog, FaCrown, FaBars, FaTimes, FaPlus, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaSun,
+  FaMoon,
+  FaUserCog,
+  FaCrown,
+  FaBars,
+  FaTimes,
+  FaPlus,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -60,10 +69,16 @@ const Navbar = () => {
           <button
             onClick={toggleTheme}
             className="btnThemeToggle"
-            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            title={
+              theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
+            }
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? <FaSun className="themeIcon sunIcon" /> : <FaMoon className="themeIcon moonIcon" />}
+            {theme === "dark" ? (
+              <FaSun className="themeIcon sunIcon" />
+            ) : (
+              <FaMoon className="themeIcon moonIcon" />
+            )}
           </button>
 
           {user ? (
@@ -78,12 +93,14 @@ const Navbar = () => {
                 <div className="navAvatar">
                   {user.username.slice(0, 1).toUpperCase()}
                 </div>
-                <span className="userGreeting">
-                  Hi, {user.username}
-                  {user.isAdmin && (
-                    <FaCrown size={12} className="adminCrown" title="Admin Account" />
-                  )}
-                </span>
+                <span className="userGreeting">Hi, {user.username}</span>
+                {user.isAdmin && (
+                  <FaCrown
+                    size={12}
+                    className="adminCrown"
+                    title="Admin Account"
+                  />
+                )}
                 <FaUserCog size={13} className="settingsIcon" />
               </button>
 
@@ -103,7 +120,11 @@ const Navbar = () => {
                   aria-expanded={isMobileMenuOpen}
                   onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                 >
-                  {isMobileMenuOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
+                  {isMobileMenuOpen ? (
+                    <FaTimes size={16} />
+                  ) : (
+                    <FaBars size={16} />
+                  )}
                 </button>
 
                 {isMobileMenuOpen && (
@@ -116,7 +137,10 @@ const Navbar = () => {
                       <FaPlus size={13} />
                       Add Blog
                     </Link>
-                    <button className="mobileDropdownItem danger" onClick={handleLogout}>
+                    <button
+                      className="mobileDropdownItem danger"
+                      onClick={handleLogout}
+                    >
                       <FaSignOutAlt size={13} />
                       Logout
                     </button>
