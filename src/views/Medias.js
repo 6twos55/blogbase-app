@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 
-const CATEGORIES = ["All", "Mysteries", "Tech", "Culture", "Life", "Science"];
+const CATEGORIES = ["All", "Mysteries", "Culture", "Life", "Science"];
 
 const Medias = () => {
   const { user } = useAuth();
@@ -109,18 +109,6 @@ const Medias = () => {
         fullText.includes("legend")
       );
     }
-    if (selectedCategory === "Tech") {
-      return (
-        fullText.includes("tech") ||
-        fullText.includes("code") ||
-        fullText.includes("ai") ||
-        fullText.includes("software") ||
-        fullText.includes("computer") ||
-        fullText.includes("digital") ||
-        fullText.includes("data") ||
-        fullText.includes("web")
-      );
-    }
     if (selectedCategory === "Culture") {
       return (
         fullText.includes("culture") ||
@@ -162,7 +150,6 @@ const Medias = () => {
 
   return (
     <div className="mediasContainer">
-      {/* ── Rich Hero Section ───────────────────────────── */}
       <section className="heroSection">
         <div className="heroBadge">
           <FaCompass className="heroBadgeIcon" />
@@ -214,7 +201,6 @@ const Medias = () => {
         </div>
       </section>
 
-      {/* ── Stories Feed ─────────────────────────────────── */}
       <div className="storiesHeaderBar">
         <div className="feedTitleWrapper">
           <h2 className="feedTitle">
